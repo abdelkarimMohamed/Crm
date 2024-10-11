@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div style="padding-left: 100px; padding-top: 100px; padding-bottom: 40px;">
+    <strong class="text-center">
+        <h2>
+            <b><i class="fa fa-user" aria-hidden="true"></i>
+                 {{ record.first_name|capfirst }} {{ record.last_name }}</b>
+        </h2>
+    </strong>
+    <hr style="border:1px solid #000;margin: 20px 1px;">
+    <div class="cart-body">
+        <h3>
+            <p><strong>ID: </strong>{{ record.id }}</p>
+            <p><strong>Full Name: </strong>  {{ record.first_name|capfirst }} {{ record.last_name }}</p>
+            <p><strong>Phone: </strong>{{ record.phone }}</p>
+            <p><strong>Category: </strong>{{ record.categoty }}</p>
+            <p><strong>Address: </strong>{{ record.address }}</p>
+            <p><strong>Tall: </strong>{{ record.tall }}</p>
+            <p><strong>width: </strong>{{ record.width }}</p>
+            <p><strong>Creation Date: </strong>{{ record.create_at }}</p>
+        </h3>
+    </div>
+    <br>
+    <a href="{% url 'update_record' record.id %}" class="btn btn-outline-dark">Update Record <i class="fa fa-wrench" aria-hidden="true"></i>
+    </a>
+    <a href="{% url 'delete_record' record.id %}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-outline-danger">Delete Record <i class="fa fa-trash-o" aria-hidden="true"></i>
+    </a>
+</div>
+{% endblock %}

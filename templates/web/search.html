@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="text-center" style="padding-left: 50px;">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Tall</th>
+            <th scope="col">Width</th>
+            <th scope="col">Date</th>
+            <th scope="col">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if results %}
+
+           {% for record in results %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ record.first_name }}</td>
+            <td>{{ record.last_name }}</td>
+            <td>{{ record.category.name }}</td>
+            <td>{{ record.phone }}</td>
+            <td>{{ record.address }}</td>
+            <td>{{ record.tall }}</td>
+            <td>{{ record.width }}</td>
+            <td>{{ record.create_at }}</td>
+            <td><a href="{% url 'view_record' record.id %}" class="btn btn-outline-primary btn-sm">View</a></td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="110" class="text-center">
+              <br><br>
+              <div class="alert alert-warning" role="alert">
+                Not found " {{ query }} ".
+              </div>
+            </td>
+          </tr>
+          {% endif %}
+
+        </tbody>
+      </table>
+</div>
+{% endblock %}
