@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+&nbsp;
+&nbsp;
+&nbsp;
+<h1>Welcome to the dashboard page <b>{{ user }}! 👋</b></h1>
+<hr style="border:1px solid #000;margin: 20px 50px;">
+<div style="padding-left: 70px;">
+    <a href="{% url 'createrecord' %}" class="btn btn-outline-primary">Create Record <i class="fa fa-plus" aria-hidden="true"></i>
+    </a>
+</div>
+<hr style="border:1px solid #000;margin: 20px 50px;">
+
+{% include 'parts/alerts.html' %}
+
+<div class="text-center" style="margin: 20px 50px;">
+  <form action="{% url 'search' %}" method="get">
+    <input type="search" name="query" placeholder="write something here" class="form-control mr-sm-2">
+    &nbsp;
+    <button type="submit" class="btn btn-outline-dark w-100 btn-block p-2">Search</button>
+  </form>
+  <hr style="border:1px solid #000;margin: 20px 5px;">
+
+</div>
+<div class="text-center" style="padding-left: 50px;">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Tall</th>
+            <th scope="col">Width</th>
+            <th scope="col">Date</th>
+            <th scope="col">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if records %}
+
+           {% for record in records %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ record.first_name }}</td>
+            <td>{{ record.last_name }}</td>
+            <td>{{ record.category.name }}</td>
+            <td>{{ record.phone }}</td>
+            <td>{{ record.address }}</td>
+            <td>{{ record.tall }}</td>
+            <td>{{ record.width }}</td>
+            <td>{{ record.create_at }}</td>
+            <td><a href="{% url 'view_record' record.id %}" class="btn btn-outline-primary btn-sm">View</a></td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="110" class="text-center">
+              <br><br>
+              <div class="alert alert-warning" role="alert">
+                You don't have any record yet.
+              </div>
+            </td>
+          </tr>
+          {% endif %}
+
+        </tbody>
+      </table>
+</div>
+{% endblock %}
